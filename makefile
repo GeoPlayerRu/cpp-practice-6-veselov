@@ -2,6 +2,10 @@
 all : build/array build/array-compact build/string
 windows : build/array.exe build/array-compact.exe build/string.exe
 
+clean :
+	rm build/*
+	touch build/.gitkeep
+
 build/array : array.cpp
 	g++ array.cpp -o build/array
 

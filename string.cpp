@@ -10,12 +10,17 @@ int main(){
 
 	std::cout << "Введите обрабатываемую строку\n";
 	std::getline(std::cin,processed_string);
+	
+	if(processed_string == "") {
+		std::cout << "Строка пуста. Выхожу\n";
+		return 1;
+	}
 
 	std::cout << "Введите M и N (счёт начинается с первого слова, а не нулевого)\n";
 	std::cin >> m >> n;
 	
 	if(m > n) {
-		std::cout << "M больше чем N, интервал не верный. Выхожу";
+		std::cout << "M больше чем N, интервал не верный. Выхожу\n";
 		return 1;
 	}
 
@@ -40,19 +45,32 @@ int main(){
 		if (word_count >= m && left_pointer == -1){
 			left_pointer = i;
 		}
-		if (word_count >= n) {
+		if (word_count > n) {
 			right_pointer = i;
 			break;
 		}
 	}
 
 	if (right_pointer == -1){
+		// Дополнительная проверка, ибо последнее слово тоже должно считаться
+		if (processed_string[processed_string.length()-1] != ' '){
+			word_count++;
+			if (word_count > n) {
+				right_pointer = processed_string.length();
+				if (left_pointer!=0)
+					left_pointer--; // Иначе оставляем лишний пробел
+			}
+		}
+	}
+
+	// Если всё ещё нету правого конца
+	if (right_pointer == -1){
 		std::cout << "Интервал больше, чем слов в строке. Выхожу";
 		return 1;
 	}
 
 	result = processed_string.substr(0,left_pointer)+processed_string.substr(right_pointer,processed_string.length()-right_pointer);
-	std::cout << result;
+	std::cout << result << std::endl;
 
 	return 0;
 }
