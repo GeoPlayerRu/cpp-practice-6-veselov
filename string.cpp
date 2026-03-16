@@ -1,6 +1,5 @@
 #include <clocale>
 #include <iostream>
-#include <string>
 
 int main(){
 	setlocale(LC_ALL, "");
@@ -22,6 +21,9 @@ int main(){
 	if(m > n) {
 		std::cout << "M больше чем N, интервал не верный. Выхожу\n";
 		return 1;
+	}
+	if(m==0){
+		std::cout << "M равен нулю. Выхожу\n";
 	}
 
 	std::string result;
